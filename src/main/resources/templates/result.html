@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th='http://www.thymeleaf.org' lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result Page</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: "Indie Flower", cursive;
+            text-align: center;
+            padding-top: 50px;
+        }
+		img{
+            width: 30%;
+        }
+        #result-container {
+            background-color: #459d64;
+            padding-top: 20px;
+            border-radius: 10px;
+            width: 50%;
+            margin: auto;
+            padding-bottom:20px;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+<img src="index image.jpg" alt="">
+</div>
+    <div id="result-container">
+        <h1>Result</h1>
+        <div id="result"></div>
+    </div>
+<script>
+    window.addEventListener('message', async function (event) {
+        try {
+            const response = await fetch(event.data.url);
+            const data = await response.json();
+            console.log(data);
+            const formattedData = JSON.stringify(data, null, 2).replace(/\n/g, '<br>'); // Replace newlines with <br>
+            const resultContainer = document.getElementById('result');
+            const formattedDataDiv = document.createElement('div');
+            formattedDataDiv.innerHTML = '<pre>' + formattedData + '</pre>';
+            resultContainer.appendChild(formattedDataDiv);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    });
+</script>
+    
+</body>
+
+</html>

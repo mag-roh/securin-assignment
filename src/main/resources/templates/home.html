@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Game</title>
+    <style>
+        .container {
+            width: 70%;
+            margin: auto;
+            text-align: center;
+        }
+        .dice {
+            text-align: center;
+            display: inline-block;
+            margin: 10px;
+        }
+        h1
+        {
+        color:white;
+        }
+        body {
+            background-color:black;
+            margin: 0;
+        }
+        p {
+            font-size: 1rem;
+            color: #184435;
+            font-family: "Indie Flower", cursive;
+        }
+        img{
+            width: 50%;
+        }
+        .bottom {
+            padding-top: 30px;
+            display:block; 
+            padding-left:20px;
+        }
+        .btn1 {
+            background: #459d64;
+            font-family: "Indie Flower", cursive;
+            border-radius: 7px;
+            color: #ffff;
+            font-size: 25px;
+            padding: 16px 25px 16px 25px;
+            text-decoration: none;
+        }
+        .btn2 {
+            background: #3bbe07;
+            font-family: "Indie Flower", cursive;
+            border-radius: 7px;
+            color: #ffff;
+            font-size: 25px;
+            padding: 16px 25px 16px 25px;
+            text-decoration: none;
+        }
+        .btn3 {
+            background: #c3ce22;
+            font-family: "Indie Flower", cursive;
+            border-radius: 7px;
+            color: #ffff;
+            font-size: 25px;
+            padding: 16px 25px 16px 25px;
+            text-decoration: none;
+        }
+        #result
+        {
+        color:white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="index image.jpg" alt="">
+        <div class="container bottom">
+            <button type="button" class="btn1" onclick="openResultPage('http://localhost:8080/doomed-dice/total-combinations')">
+                Total Combinations</button>
+        </div>
+        <div class="container bottom">
+            <button type="button" class="btn2" onclick="openResultPage('http://localhost:8080/doomed-dice/distribution')">
+                Distribution</button>
+        </div>
+        <div class="container bottom">
+            <button type="button" class="btn3" onclick="openResultPage('http://localhost:8080/doomed-dice/probability')">
+                Probability</button>
+        </div>
+    </div>
+    <script>
+        function openResultPage(url) {
+            fetch(url, {
+        method: 'GET',
+    })
+    .then(response => response.json())
+    .then(output => {
+        const resultWindow = window.open('result.html', '_blank');
+
+        // Pass the output to the result page
+        resultWindow.onload = function() {
+            resultWindow.postMessage({ output }, '*');
+        };
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+        }
+    </script>
+</body>
+</html>
